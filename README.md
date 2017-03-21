@@ -20,6 +20,7 @@ go-gif-pr -i /path/to/some_file.gifv
  -c  Imgur Client ID. Defaults to ENV var IMGUR_CLIENT_ID.
      If no ID is provided, the result image will be left locally.
  -k  Option to keep intermediary files created during conversion.
+ -m  Option to output into Markdown format for quick copy and paste.
 ```
 
 ## Dependencies

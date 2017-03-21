@@ -18,9 +18,10 @@ import (
 )
 
 type converter struct {
-	keepFiles  bool
-	imageWidth string
-	clientID   string
+	keepFiles      bool
+	outputMarkdown bool
+	imageWidth     string
+	clientID       string
 
 	startImage    string
 	fileToConvert string
@@ -51,6 +52,7 @@ func main() {
 	flag.StringVar(&conv.imageWidth, "w", "300", "Width of the final converted image. Defaults to 300.")
 	flag.StringVar(&conv.clientID, "c", os.Getenv("IMGUR_CLIENT_ID"), "Imgur Client ID. Defaults to ENV var IMGUR_CLIENT_ID")
 	flag.BoolVar(&conv.keepFiles, "k", false, "Option to keep intermediary files created during conversion.")
+	flag.BoolVar(&conv.outputMarkdown, "m", false, "Output Markdown formatted text for quick copy/paste.")
 	flag.Parse()
 
 	err := conv.validate()
@@ -79,7 +81,11 @@ func main() {
 		return
 	}
 
-	fmt.Println(conv.endImage)
+	if conv.outputMarkdown {
+		fmt.Printf("![](%s)\n", conv.endImage)
+	} else {
+		fmt.Println(conv.endImage)
+	}
 }
 
 func (c *converter) validate() error {
