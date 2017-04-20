@@ -33,9 +33,7 @@ type imgurResponse struct {
 	Success bool
 	Data    struct {
 		Link string
-		Err  struct {
-			Message string
-		} `json:"error"`
+		Err  string `json:"error"`
 	}
 }
 
@@ -253,7 +251,7 @@ func (c *converter) upload() error {
 	if imgur.Success {
 		c.endImage = imgur.Data.Link
 	} else {
-		return errors.New("imgur error: " + imgur.Data.Err.Message)
+		return errors.New("imgur error: " + imgur.Data.Err)
 	}
 
 	return nil
